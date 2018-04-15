@@ -8,26 +8,11 @@ class Branch {
   }
 
   show() {
-    stroke(255);
-    line(this.begin.x, this.begin.y, this.end.x, this.end.y);
+    //prototype
   }
 
-  branch(angle=PI/4) {
-    //get direction of current branch
-    let direction = p5.Vector.sub(this.end, this.begin);
-    direction.rotate(angle);
-    //make new branch shorter
-    direction.mult(0.67);
-    let newEnd1 = p5.Vector.add(this.end, direction);
-    direction.rotate(angle * -2);
-    let newEnd2 = p5.Vector.add(this.end, direction);
-
-    this.children[0] = new Branch(this.end, newEnd1);
-    this.children[1] = new Branch(this.end, newEnd2);
-
-    this.giveParents();
-
-    return this.children;
+  branch() {
+    //prototype
   }
 
   getTree() {
@@ -44,20 +29,29 @@ class Branch {
     this.children = [];
   }
 
+  addParent(parent) {
+    this.parent = parent;
+  }
+
   giveParents() {
     this.children[0].addParent(this);
     this.children[1].addParent(this);
   }
 
-  addParent(parent) {
-    this.parent = parent;
-  }
-
   //These functions aren't really used... yet
 
-  rotate() {
-    let direction = p5.Vector.sub(this.end, this.begin);
+  isParent() {
+    if (this.children != 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  isRoot() {
+    if (this.getParent() == null) {
+      return true;
+    }
   }
 
   getParent() {
